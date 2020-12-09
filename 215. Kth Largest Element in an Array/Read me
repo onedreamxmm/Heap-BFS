@@ -14,17 +14,19 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 
 solution:
 Approach 1:
-sort array first and return the Kth element from the end.
+sort an array first and return the Kth element from the end.
+time complexity: O(nlogn)
+space complexity: O(n) (in the solution of leetcode, it is O(1) instead of O(n). 
+However, I think O(n) is correct because "sorted" requires space to create a new list of the same size as the input list。
 ------------------------------------------------------------------
 class Solution:
-    def findKthLargest(self, nums: list[int], k: int) -> int:
-        l = sorted(nums)
-        return l[-k]
+    def findKthLargest(self, nums, k):
+        return sorted(nums)[-k]
 
 if __name__ == "__main__":
-    nums = [3, 2, 3, 5, 4, 1]
+    nums = [3.1, 2, 3, 5.5, 4.2, 1]
     o = Solution()
-    print(o.findKthLargest(nums, 3))
+    print(o.findKthLargest(nums, 2))
 -------------------------------------------------------------------
 Approach 2:
 Max heap: 用Max-heap sort一个长度为N的heap, 然后pop出第K个element
