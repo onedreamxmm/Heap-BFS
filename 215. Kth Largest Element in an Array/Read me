@@ -14,10 +14,10 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 
 solution:
 Approach 1:
-sort an array first and return the Kth element from the end.
+sort an array first and then return the Kth element from the end.
 time complexity: O(nlogn)
-space complexity: O(n) (in the solution of leetcode, it is O(1) instead of O(n). 
-However, I think O(n) is correct because "sorted" requires space to create a new list of the same size as the input list。
+space complexity: O(n) 
+(in the solution of leetcode, time complexity is O(1) instead of O(n). However, I think O(n) is correct because "sorted" requires space to create a new list of the same size as the input list。
 ------------------------------------------------------------------
 class Solution:
     def findKthLargest(self, nums, k):
