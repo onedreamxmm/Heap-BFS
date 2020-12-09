@@ -1,0 +1,36 @@
+Problem:
+Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+Example 1:
+Input: [3,2,1,5,6,4] and k = 2
+Output: 5
+
+Example 2:
+Input: [3,2,3,1,2,4,5,5,6] and k = 4
+Output: 4
+
+Note:
+You may assume k is always valid, 1 ≤ k ≤ array's length.
+
+solution:
+Approach 1:
+sort array first and return the Kth element from the end.
+------------------------------------------------------------------
+class Solution:
+    def findKthLargest(self, nums: list[int], k: int) -> int:
+        l = sorted(nums)
+        return l[-k]
+
+if __name__ == "__main__":
+    nums = [3, 2, 3, 5, 4, 1]
+    o = Solution()
+    print(o.findKthLargest(nums, 3))
+-------------------------------------------------------------------
+Approach 2:
+Max heap: 用Max-heap sort一个长度为N的heap, 然后pop出第K个element
+
+Approach 3:
+用max-heap sort一个长度为k的heap，迭代完成剩下所有elements的replace，最后pop出heap里的最后一个element。
+
+Approach 4:
+用传说中的quik sort， 但是现在不知道怎么用
