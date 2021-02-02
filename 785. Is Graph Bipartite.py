@@ -1,35 +1,32 @@
 '''
-Intuition
+Given an undirected graph, return true if and only if it is bipartite.
 
-Color a node blue if it is part of the first set, else red. We should be able to greedily color the graph if and only if it is bipartite: one node being blue implies all it's neighbors are red, all those neighbors are blue, and so on.
+Recall that a graph is bipartite if we can split its set of nodes into two independent subsets A and B, such that every edge in the graph has one node in A and another node in B.
 
+The graph is given in the following form: graph[i] is a list of indexes j for which the edge between nodes i and j exists.  Each node is an integer between 0 and graph.length - 1.  There are no self edges or parallel edges: graph[i] does not contain i, and it doesn't contain any element twice.
 
-Diagram of coloring neighbors of nodes
+Time Complexity: O(N+E), where N is the number of nodes in the graph, and E is the number of edges. We explore each node once when we transform it from uncolored to colored, traversing all its edges in the process.
 
-Algorithm
-
-We'll keep an array (or hashmap) to lookup the color of each node: color[node]. The colors could be 0, 1, or uncolored (-1 or null).
-
-We should be careful to consider disconnected components of the graph, by searching each node. For each uncolored node, we'll start the coloring process by doing a depth-first-search on that node. Every neighbor gets colored the opposite color from the current node. If we find a neighbor colored the same color as the current node, then our coloring was impossible.
-
-To perform the depth-first search, we use a stack. For each uncolored neighbor in graph[node], we'll color it and add it to our stack, which acts as a sort of "todo list" of nodes to visit next. Our larger loop for start... ensures that we color every node. Here is a visual dry-run of the algorithm whose Python code is below.
+Space Complexity: O(N), the space used to store the color.
 '''
 
 
+from collections import deque
 class Solution:
     def isBipartite(self, graph):
-        color = {}
-        for node in range(len(graph)):
-            if node not in color:
-                stack = [node]
-                color[node] = 0
-                while stack:
-                    node = stack.pop()
-                    for nei in graph[node]:
-                        if nei not in color:
-                            stack.append(nei)
-                            color[nei] = color[node] ^ 1
-                        elif color[nei] == color[node]:
+        n = len(graph)
+        colored = {}
+        for node in range(n):
+            if node not in colored:
+                colored[node] = 1
+                queue = deque([node])
+                while queue:
+                    cur = queue.popleft()
+                    for nei in graph[cur]:
+                        if nei not in colored:
+                            colored[nei] = 1 - colored[cur]
+                            queue.append(nei)
+                        elif colored[nei] == colored[cur]:
                             return False
         return True
 
